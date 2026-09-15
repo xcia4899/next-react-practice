@@ -20,14 +20,16 @@ cmd /c npm run dev
 - `useEffect`：計時器、依賴陣列與 cleanup
 - `useContext`：跨元件共用學習模式與完成進度
 - 資料流：props 向下傳遞、callback 將事件傳回父元件
+- TypeScript 購物車：使用 `find`、`map`、`filter`、`reduce` 操作型別化陣列
 - TypeScript：元件 props、表單事件、物件與 union type
 
 ## 建議閱讀順序
 
 1. `src/app/page.tsx`：了解 App Router 頁面入口。
-2. `src/components/LearningLab.tsx`：操作 Hooks 與父子元件資料流。
-3. `src/context/LearningContext.tsx`：理解 Provider、自訂 Hook 與共享狀態。
-4. `src/app/globals.css`：查看 Tailwind CSS v4 的 `@import` 與主題變數。
+2. `src/components/LearningLab.tsx`：了解首頁如何組合各個練習元件。
+3. `src/components/practice/`：分別操作 Hooks、資料流與購物車範例。
+4. `src/context/LearningContext.tsx`：理解 Provider、自訂 Hook 與共享狀態。
+5. `src/app/globals.css`：查看 Tailwind CSS v4 的 `@import` 與主題變數。
 
 ## 可用指令
 
