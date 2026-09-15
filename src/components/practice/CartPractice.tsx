@@ -13,6 +13,7 @@ type Product = {
 
 type CartItem = Product & {
   quantity: number;
+  selected: boolean;
 };
 
 const products: Product[] = [
@@ -21,12 +22,83 @@ const products: Product[] = [
   { id: 3, name: "除錯咖啡", category: "補給", price: 150, emoji: "☕" },
 ];
 
-const cartSnippet = `const existing = cart.find((item) => item.id === product.id);
+const cartSnippet = `type Product = {
+  id: number;
+  name: string;
+  price: number;
+};
 
-setCart((current) => current.map((item) => ({ ...item })));
-setCart((current) => current.filter((item) => item.id !== id));
+type CartItem = Product & {
+  quantity: number;
+  selected: boolean;
+};
 
-const total = cart.reduce(
+const [cart, setCart] = useState<CartItem[]>([]);
+
+const addToCart = (product: Product) => {
+  setCart((current) => {
+    const existing = current.find(
+      (item) => item.id === product.id,
+    );
+
+    if (existing) {
+      return current.map((item) =>
+        item.id === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item,
+      );
+    }
+
+    return [
+      ...current,
+      { ...product, quantity: 1, selected: true },
+    ];
+  });
+};
+
+const changeQuantity = (id: number, change: number) => {
+  setCart((current) =>
+    current
+      .map((item) =>
+        item.id === id
+          ? { ...item, quantity: item.quantity + change }
+          : item,
+      )
+      .filter((item) => item.quantity > 0),
+  );
+};
+
+const toggleItem = (id: number) => {
+  setCart((current) =>
+    current.map((item) =>
+      item.id === id
+        ? { ...item, selected: !item.selected }
+        : item,
+    ),
+  );
+};
+
+const toggleAll = () => {
+  setCart((current) => {
+    const shouldSelectAll = current.some(
+      (item) => !item.selected,
+    );
+
+    return current.map((item) => ({
+      ...item,
+      selected: shouldSelectAll,
+    }));
+  });
+};
+
+const removeItem = (id: number) => {
+  setCart((current) =>
+    current.filter((item) => item.id !== id),
+  );
+};
+
+const selectedCart = cart.filter((item) => item.selected);
+const selectedTotal = selectedCart.reduce(
   (sum, item) => sum + item.price * item.quantity,
   0,
 );`;
@@ -47,12 +119,12 @@ export function CartPractice() {
       if (existing) {
         return current.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + 1, selected: true }
             : item,
         );
       }
 
-      return [...current, { ...product, quantity: 1 }];
+      return [...current, { ...product, quantity: 1, selected: true }];
     });
   };
 
@@ -68,15 +140,44 @@ export function CartPractice() {
     );
   };
 
+  const toggleItem = (id: number) => {
+    setCart((current) =>
+      current.map((item) =>
+        item.id === id ? { ...item, selected: !item.selected } : item,
+      ),
+    );
+  };
+
+  const toggleAll = () => {
+    setCart((current) => {
+      const shouldSelectAll = current.some((item) => !item.selected);
+
+      return current.map((item) => ({
+        ...item,
+        selected: shouldSelectAll,
+      }));
+    });
+  };
+
   const removeItem = (id: number) => {
     setCart((current) => current.filter((item) => item.id !== id));
   };
 
+  const removeSelected = () => {
+    setCart((current) => current.filter((item) => !item.selected));
+  };
+
+  const selectedCart = cart.filter((item) => item.selected);
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = cart.reduce(
+  const selectedItems = selectedCart.reduce(
+    (sum, item) => sum + item.quantity,
+    0,
+  );
+  const selectedTotal = selectedCart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
   );
+  const allSelected = cart.length > 0 && cart.every((item) => item.selected);
 
   return (
     <article className="rounded-[2rem] border border-line bg-panel/80 p-6 sm:p-8 lg:col-span-2">
@@ -85,7 +186,7 @@ export function CartPractice() {
         <div>
           <h2 className="text-2xl font-semibold tracking-tight">購物車陣列邏輯</h2>
           <p className="mt-3 max-w-xl leading-7 text-muted">
-            用 Product 與 CartItem 型別約束資料，再透過 find、map、filter、reduce 完成常見購物車操作。
+            用 Product 與 CartItem 型別約束資料，再透過 find、map、filter、every、reduce 完成購物車與勾選操作。
           </p>
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             {products.map((product) => (
@@ -113,14 +214,25 @@ export function CartPractice() {
               </div>
             ))}
           </div>
-          <CodeSample>{cartSnippet}</CodeSample>
+          <CodeSample title="完整的型別與購物車陣列邏輯">
+            {cartSnippet}
+          </CodeSample>
         </div>
 
-        <div className="rounded-2xl bg-black/20 p-5">
-          <div className="flex items-center justify-between border-b border-white/8 pb-4">
-            <h3 className="font-semibold">我的購物車</h3>
+        <div className="self-start rounded-2xl bg-black/20 p-5">
+          <div className="flex items-center justify-between gap-4 border-b border-white/8 pb-4">
+            <label className="flex cursor-pointer items-center gap-2 text-sm font-semibold">
+              <input
+                type="checkbox"
+                checked={allSelected}
+                onChange={toggleAll}
+                disabled={cart.length === 0}
+                className="size-4 accent-[var(--accent)] disabled:cursor-not-allowed"
+              />
+              {allSelected ? "取消全選" : "全選商品"}
+            </label>
             <span className="rounded-full bg-accent/15 px-3 py-1 text-xs text-accent">
-              {totalItems} 件商品
+              共 {totalItems} 件
             </span>
           </div>
 
@@ -136,7 +248,21 @@ export function CartPractice() {
           ) : (
             <ul className="divide-y divide-white/8">
               {cart.map((item) => (
-                <li key={item.id} className="flex items-center gap-3 py-4">
+                <li
+                  key={item.id}
+                  className={`flex flex-wrap items-center gap-3 py-4 sm:flex-nowrap ${
+                    item.selected ? "opacity-100" : "opacity-55"
+                  }`}
+                >
+                  <label className="grid size-6 shrink-0 cursor-pointer place-items-center">
+                    <span className="sr-only">選取 {item.name}</span>
+                    <input
+                      type="checkbox"
+                      checked={item.selected}
+                      onChange={() => toggleItem(item.id)}
+                      className="size-4 accent-[var(--accent)]"
+                    />
+                  </label>
                   <span className="text-2xl" aria-hidden="true">
                     {item.emoji}
                   </span>
@@ -180,18 +306,28 @@ export function CartPractice() {
             </ul>
           )}
 
-          <div className="mt-4 flex items-end justify-between border-t border-white/8 pt-4">
-            <div>
-              <p className="text-xs text-muted">訂單總計</p>
-              <strong className="mt-1 block font-mono text-2xl text-accent">
-                {priceFormatter.format(totalPrice)}
-              </strong>
+          <div className="mt-4 border-t border-white/8 pt-4">
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <p className="text-xs text-muted">已選 {selectedItems} 件商品</p>
+                <strong className="mt-1 block font-mono text-2xl text-accent">
+                  {priceFormatter.format(selectedTotal)}
+                </strong>
+              </div>
+              <button
+                type="button"
+                onClick={removeSelected}
+                disabled={selectedCart.length === 0}
+                className="rounded-xl border border-white/10 px-4 py-2 text-xs text-muted transition hover:border-red-300/40 hover:text-red-200 disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-white/10 disabled:hover:text-muted"
+              >
+                刪除已選
+              </button>
             </div>
             {cart.length > 0 && (
               <button
                 type="button"
                 onClick={() => setCart([])}
-                className="rounded-xl border border-white/10 px-4 py-2 text-xs text-muted transition hover:border-red-300/40 hover:text-red-200"
+                className="mt-3 w-full rounded-xl bg-white/7 px-4 py-2.5 text-xs text-muted transition hover:bg-white/12 hover:text-white"
               >
                 清空購物車
               </button>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { SectionLabel } from "./PracticeCardParts";
+import { CodeSample, SectionLabel } from "./PracticeCardParts";
 
 type PracticeTask = {
   id: number;
@@ -13,6 +13,51 @@ type TaskListProps = {
   tasks: PracticeTask[];
   onToggle: (id: number) => void;
 };
+
+const dataFlowSnippet = `type Task = {
+  id: number;
+  title: string;
+  done: boolean;
+};
+
+type TaskListProps = {
+  tasks: Task[];
+  onToggle: (id: number) => void;
+};
+
+// 子元件：接收資料與 callback，不直接修改父元件 state。
+function TaskList({ tasks, onToggle }: TaskListProps) {
+  return (
+    <ul>
+      {tasks.map((task) => (
+        <li key={task.id}>
+          <button onClick={() => onToggle(task.id)}>
+            {task.done ? "已完成" : "待完成"}：{task.title}
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+// 父元件：擁有 state，並提供更新 state 的函式。
+export function TaskBoard() {
+  const [tasks, setTasks] = useState<Task[]>([
+    { id: 1, title: "練習 props", done: false },
+  ]);
+
+  const toggleTask = (id: number) => {
+    setTasks((current) =>
+      current.map((task) =>
+        task.id === id
+          ? { ...task, done: !task.done }
+          : task,
+      ),
+    );
+  };
+
+  return <TaskList tasks={tasks} onToggle={toggleTask} />;
+}`;
 
 function TaskList({ tasks, onToggle }: TaskListProps) {
   return (
@@ -107,6 +152,9 @@ export function DataFlowPractice() {
           <TaskList tasks={tasks} onToggle={toggleTask} />
         </div>
       </div>
+      <CodeSample title="完整的 Props 與 Callback 資料流">
+        {dataFlowSnippet}
+      </CodeSample>
     </article>
   );
 }
