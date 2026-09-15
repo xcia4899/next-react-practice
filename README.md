@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# React 語法練習室
 
-## Getting Started
+使用 Next.js、React、TypeScript 與 Tailwind CSS v4 建立的互動練習專案。
 
-First, run the development server:
+## 開始使用
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+瀏覽器開啟 [http://localhost:3000](http://localhost:3000)。Windows PowerShell 若阻擋 `npm.ps1`，可改用：
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cmd /c npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 目前的練習內容
 
-## Learn More
+- `useState`：計數器、受控 input、不可變陣列更新
+- `useEffect`：計時器、依賴陣列與 cleanup
+- `useContext`：跨元件共用學習模式與完成進度
+- 資料流：props 向下傳遞、callback 將事件傳回父元件
+- TypeScript：元件 props、表單事件、物件與 union type
 
-To learn more about Next.js, take a look at the following resources:
+## 建議閱讀順序
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. `src/app/page.tsx`：了解 App Router 頁面入口。
+2. `src/components/LearningLab.tsx`：操作 Hooks 與父子元件資料流。
+3. `src/context/LearningContext.tsx`：理解 Provider、自訂 Hook 與共享狀態。
+4. `src/app/globals.css`：查看 Tailwind CSS v4 的 `@import` 與主題變數。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 可用指令
 
-## Deploy on Vercel
+```bash
+npm run dev     # 啟動開發環境
+npm run lint    # 檢查程式規範
+npm run build   # 建立正式版本
+npm run start   # 執行正式版本
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 下一步練習
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+可以嘗試加入 `useReducer`、自訂 Hook、API 資料讀取、loading/error 狀態，以及 Next.js 動態路由。
