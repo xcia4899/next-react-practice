@@ -1,46 +1,44 @@
-# React 語法練習室
+# 澄岳數位設計
 
-使用 Next.js、React、TypeScript 與 Tailwind CSS v4 建立的互動練習專案。
+虛構公司示範網站，以 Next.js、React、TypeScript、Tailwind CSS v4 與 next-intl 建立繁體中文／英文三頁。網站仍在開發與驗收，尚無已驗證的 Pages 公開網址。
 
-## 開始使用
+## 開發
 
-```bash
-npm run dev
+使用 Node 22.18.0、pnpm 10.14.0（packageManager 已固定）。
+
+```sh
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
-瀏覽器開啟 [http://localhost:3000](http://localhost:3000)。Windows PowerShell 若阻擋 `npm.ps1`，可改用：
+開發網址依啟動輸出。入口預設繁體中文；/zh-TW/、/en/ 各有首頁、services/、about/。
 
-```bash
-cmd /c npm run dev
+## 檢查與靜態預覽
+
+```sh
+pnpm lint
+pnpm exec next typegen
+pnpm exec tsc --noEmit
+pnpm build
+node scripts/verify-static.mjs
+pnpm start
 ```
 
-## 目前的練習內容
+`pnpm start` 以純靜態伺服器提供 out/，預設 http://127.0.0.1:3051/，不使用 next start；必須先建置，未知路徑回 HTTP 404。
 
-- `useState`：計數器、受控 input、不可變陣列更新
-- `useEffect`：計時器、依賴陣列與 cleanup
-- `useContext`：跨元件共用學習模式與完成進度
-- 資料流：props 向下傳遞、callback 將事件傳回父元件
-- TypeScript 購物車：使用 `find`、`map`、`filter`、`every`、`reduce` 操作型別化陣列
-- 購物車勾選：單選、全選、刪除已選，以及已選商品總價
-- TypeScript：元件 props、表單事件、物件與 union type
+專案 Pages 子路徑預覽（PowerShell）：
 
-## 建議閱讀順序
-
-1. `src/app/page.tsx`：了解 App Router 頁面入口。
-2. `src/components/LearningLab.tsx`：了解首頁如何組合各個練習元件。
-3. `src/components/practice/`：分別操作 Hooks、資料流與購物車範例，頁面中也附有完整核心程式碼。
-4. `src/context/LearningContext.tsx`：理解 Provider、自訂 Hook 與共享狀態。
-5. `src/app/globals.css`：查看 Tailwind CSS v4 的 `@import` 與主題變數。
-
-## 可用指令
-
-```bash
-npm run dev     # 啟動開發環境
-npm run lint    # 檢查程式規範
-npm run build   # 建立正式版本
-npm run start   # 執行正式版本
+```powershell
+$env:NEXT_PUBLIC_BASE_PATH = "/next-react-practice"
+pnpm build
+node scripts/verify-static.mjs
+pnpm start
 ```
 
-## 下一步練習
+開啟 http://127.0.0.1:3051/next-react-practice/。建置、檢查與預覽須使用相同 NEXT_PUBLIC_BASE_PATH；需要其他埠號時設定 PORT。改回根路徑須先清除該環境變數並重新建置。
 
-可以嘗試加入 `useReducer`、自訂 Hook、API 資料讀取、loading/error 狀態，以及 Next.js 動態路由。
+## 發布與進度
+
+.github/workflows/pages.yml 已準備 main 分支的 Pages 建置／部署流程，已取得本次 Commit／Push／Pages 設定授權，部署執行中；尚未驗證 Actions 與公開 HTTPS 網址。本機通過不代表公開交付完成。
+
+進度及驗證正本見 [TASK-20261020-0001](docs/task/20261020-0001-company-website.md) 與 [文件索引](docs/AGENTS.md#10-索引)。大量截圖與 Performance trace 僅存本機暫存，不入版控。

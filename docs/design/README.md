@@ -8,4 +8,4 @@
 - 驗收策略留在 DESIGN；有 TASK 時由 TASK 記錄執行結果，無 TASK 時可在 DESIGN 簡記真實驗證證據。
 - 核准、Design First 規則與狀態依 [文件治理正本](../AGENTS.md) 及 [開發入口](../../AGENTS.md)；歸檔不搬移檔案。
 
-目前未建立正式 DESIGN。
+現有設計：[DESIGN-20261019-0001 公司形象網站 UI UX 與動態設計](20261019-0001-company-website.md)。狀態以 [§10 索引](../AGENTS.md#10-索引) 為準。

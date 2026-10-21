@@ -80,7 +80,7 @@
 | 指定檔案 Lint | 使用 `pnpm exec eslint <檔案路徑>`，以實際受 ESLint 管理的檔案取代佔位值；不加自動修正參數 |
 | 路由型別 | 初次安裝或路由異動後，先執行 `pnpm exec next typegen`，再做獨立型別檢查 |
 | 正式建置 | 不能取代獨立 Lint；須記錄實際結果 |
-| 正式模式啟動 | 須先成功建置；未指定 PORT 時預設為 3000；需使用 3051 時執行 `pnpm start -p 3051`，避免與其他程序衝突 |
+| 正式模式啟動 | 本專案目前為靜態匯出：先成功建置，再以 `pnpm start` 提供 out/；預設綁定 127.0.0.1:3051，其他埠號用 PORT 環境變數，NEXT_PUBLIC_BASE_PATH 須與建置一致（見根目錄 README） |
 
 目前 `package.json` 未提供 test script，不執行不存在的測試指令。登入／註冊環境變數參考 [專案現況參考](../references/project-status.md)，實際使用須核對相關程式；不得將真實憑證寫入文件。
 

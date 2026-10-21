@@ -153,9 +153,12 @@ Design First 的 SPEC 補齊規則：
 
 | 類型 | 文件 | 狀態 | 說明 |
 | --- | --- | --- | --- |
+| REQ | [REQ-20261019-0001 公司形象網站需求](req/20261019-0001-company-website.md) | approved | 三頁原始基準及後續中英文需求已核准，均未完成驗收 |
+| SPEC | [SPEC-20261019-0001 公司形象網站功能規格](spec/20261019-0001-company-website.md) | approved | F01～F04 主要行為、雙語與互動限制已核准 |
+| DESIGN | [DESIGN-20261019-0001 公司形象網站 UI UX 與動態設計](design/20261019-0001-company-website.md) | implementing | 使用者已核准並授權實作；2026-10-20 已要求恢復，進度見 TASK |
+| TASK | [TASK-20261020-0001 公司形象網站分階段實作](task/20261020-0001-company-website.md) | implementing | T06完成；T07.1待整站風格確認，T03.2已授權並執行部署，見TASK |
 
-
-目前沒有正式 REQ／SPEC／DESIGN／TASK／ADR／GUIDE；現有產品與專案資料存於 `references/`，不作正式規格與完成率依據。
+目前尚無 ADR／GUIDE；產品與專案參考資料存於 `references/`，不作正式規格與完成率依據。
 
 ### 11. Framework／共用模組開發規則
 

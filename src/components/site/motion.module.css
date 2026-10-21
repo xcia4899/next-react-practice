@@ -1,0 +1,38 @@
+.geometry, .entrance { width: 100%; color: var(--accent); }
+.plane { fill: var(--background); stroke: currentColor; stroke-width: 1.2; transition: d 320ms ease, fill 320ms ease; }
+.plane:nth-of-type(3) { fill: var(--accent); fill-opacity: .1; }
+.plane:nth-of-type(4) { fill: var(--foreground); fill-opacity: .07; }
+.entrance .plane { animation: assemble 850ms cubic-bezier(.2,.7,.2,1) both; transform-origin: center; transform-box: fill-box; }
+.entrance .plane:nth-of-type(3) { animation-delay: 60ms; }
+.entrance .plane:nth-of-type(4) { animation-delay: 120ms; }
+.copy > * { animation: settle 450ms ease both; }
+.copy > :nth-child(2) { animation-delay: 60ms; }
+.copy > :nth-child(3) { animation-delay: 120ms; }
+.description { animation: settle 300ms ease both; }
+.reveal { position: relative; }
+.reveal[data-revealed="true"] { animation: settle 450ms ease both; }
+.reveal[data-revealed="true"]::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: var(--accent); opacity: .4; transform-origin: left; animation: extend 650ms ease both; }
+.historyPanel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 240ms ease; }
+.historyPanel[data-open="true"] { grid-template-rows: 1fr; }
+.historyPanel > div { overflow: hidden; min-height: 0; }
+.historyIndicator { transition: transform 240ms ease; }
+.historyIndicator[data-open="true"] { transform: rotate(45deg); }
+@keyframes extend { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes assemble {
+  from { stroke-dasharray: 1; stroke-dashoffset: 1; transform: translateY(22px) rotate(-4deg); }
+  to { stroke-dasharray: 1; stroke-dashoffset: 0; transform: translateY(0) rotate(0); }
+}
+@keyframes settle { from { transform: translateY(10px); } to { transform: translateY(0); } }
+@media (max-width: 767px) {
+  .entrance .plane { animation-duration: 700ms; animation-delay: 0ms; }
+  .copy > * { animation: none; }
+  .reveal[data-revealed="true"] { animation: none; }
+  @keyframes assemble {
+    from { stroke-dasharray: 1; stroke-dashoffset: 1; transform: translateY(8px); }
+    to { stroke-dasharray: 1; stroke-dashoffset: 0; transform: translateY(0); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .plane, .historyPanel, .historyIndicator { transition: none; }
+  .entrance .plane, .copy > *, .description, .reveal[data-revealed="true"], .reveal[data-revealed="true"]::before { animation: none; }
+}

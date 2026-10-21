@@ -1,0 +1,34 @@
+{
+  "Common": {
+    "brand": "Chengyue Digital Design", "home": "Home", "services": "Services", "about": "About",
+    "menu": "Open navigation", "closeMenu": "Close navigation", "skip": "Skip to main content",
+    "demo": "Fictional company · Development demo", "footer": "Clear design gives every interaction a sense of direction."
+  },
+  "Home": {
+    "title": "Make your expertise visible. Bring your brand into focus.",
+    "intro": "Chengyue Digital Design brings brand identity, websites and interface design together, helping businesses explain their services and present a consistent image.",
+    "servicesLink": "Explore our services", "aboutLink": "About Chengyue",
+    "servicesTitle": "Connect every part of your brand, from identity to experience.",
+    "aboutTitle": "Good design begins with understanding.",
+    "aboutText": "We value communication and detail. Starting with a business's services and goals, we organize information, shape its visual identity and turn it into a clear user experience."
+  },
+  "Services": {
+    "title": "From brand identity to website experience, shape a clearer digital presence.",
+    "intro": "We begin by understanding your services, turning complex information into accessible content and visuals so every interaction conveys a consistent brand impression.",
+    "brandTitle": "Brand identity design", "brandText": "From logos and color to visual applications, we create a consistent design language that expresses the character of your business.",
+    "webTitle": "Corporate websites", "webText": "From information architecture and content hierarchy to page design, we help visitors find what they need and understand your services.",
+    "interfaceTitle": "Digital interface design", "interfaceText": "We clarify user flows and interface states across mobile and desktop, giving every choice clear feedback."
+  },
+  "About": {
+    "title": "Helping businesses move forward through clear design.",
+    "intro": "Chengyue is a digital design team that values communication and detail. We believe good design begins with understanding and takes shape in every clear choice.",
+    "addressLabel": "Company address", "address": "Demo address — no physical business location",
+    "history": "Our journey", "startTitle": "Getting started", "startText": "We began with brand identity, developing a way of working that connects an understanding of needs with design expression.",
+    "expandTitle": "Expanding our services", "expandText": "We extended our work to corporate websites and interfaces, keeping brand identity and digital experiences aligned.",
+    "deepenTitle": "Developing our practice", "deepenText": "We bring content, visuals and user experience together, continually refining the details to make design clearer and easier to use."
+  },
+  "Metadata": {
+    "home": "Chengyue Digital Design | Brand, web and interface design", "services": "Services | Chengyue Digital Design", "about": "About | Chengyue Digital Design",
+    "description": "A fictional company demo introducing Chengyue Digital Design's brand identity, corporate website and digital interface design services."
+  }
+}
