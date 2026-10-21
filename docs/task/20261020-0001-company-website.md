@@ -40,7 +40,7 @@ T01～T07 保留為階段編號，不另維護父任務狀態；進度只記下�
 | 任務 | 依賴 | 狀態 | 交付與完成條件 | 現有證據／驗證 |
 |------|------|------|----------------|----------------|
 | T03.1 工作流程、產物與子路徑驗證 | T02.3 | done | 建立可審查 Actions；固定安裝、Lint、typegen、tsc、build 成功；out 含入口、六頁、404 與資源，以 /next-react-practice/ 純靜態環境驗證直接開啟、刷新及切換正常 | 已建立 Pages Actions 與 verify-static.mjs；固定安裝、Lint、typegen、tsc、build、本機產物與瀏覽器子路徑驗證通過；僅本機 Windows 結果，Actions 尚未執行 |
-| T03.2 最小 Pages 發布驗證 | T03.1 | in_progress | 查證 repository／分支／Pages 權限，取得必要 Commit／Push 授權後發布最小骨架；保留 workflow run、版本、HTTPS URL 及六頁／404／資源結果 | 2026-10-21 已取得明確 Commit／Push／Pages 設定授權；已建立 workflow Pages，提交、Actions 與 HTTPS 驗證執行中 |
+| T03.2 最小 Pages 發布驗證 | T03.1 | done | 查證 repository／分支／Pages 權限，取得必要 Commit／Push 授權後發布最小骨架；保留 workflow run、版本、HTTPS URL 及六頁／404／資源結果 | 2026-10-21 已授權並推送 bb97c49；run 39613244545 success，Pages HTTPS 六頁／404／資源及 Edge 操作通過，見 §3 |
 
 ### T04 動態樣稿
 
@@ -70,10 +70,10 @@ T03.2 成功後照順序進行樣稿；若 T03.2 已明確因外部條件 blocke
 | 任務 | 依賴 | 狀態 | 交付與完成條件 | 現有證據／驗證 |
 |------|------|------|----------------|----------------|
 | T07.1 整站功能與風格驗收 | T06.3 | in_progress | 對照最終版本彙整 V01～V08、V10 證據，補驗差異；使用者確認整站風格，不以局部樣稿確認替代 | 本機整站技術證據已彙整，版本 a3FLpkU9DVo8aiJkWMDTJ；整站審查入口 http://127.0.0.1:3052/integrated.html ，等待使用者確認完整整站風格 |
-| T07.2 線上版本發布與驗收 | T03.2、T07.1 | todo | 必要授權具備後發布確認版本；記錄 Pages URL、版本與 run，另一瀏覽器／手機驗證六頁、刷新、切換、資源及 404，滿足 V09 | V09 not_run；線上不可用即不判通過 |
+| T07.2 線上版本發布與驗收 | T03.2、T07.1 | todo | 必要授權具備後發布確認版本；記錄 Pages URL、版本與 run，另一瀏覽器／手機驗證六頁、刷新、切換、資源及 404，滿足 V09 | V09 線上技術已驗證，證據見 §3；仍等待 T07.1 整站風格確認，尚不判正式交付 done |
 | T07.3 文件同步與逐功能完成判定 | T07.2 | todo | F01～F04 各對照完整驗收及證據；更新 REQ、DESIGN、TASK、索引與已驗證指南，連結／Metadata／diff 檢查通過，不補造歷史紀錄 | not_run；僅有全部必要驗收證據才完成；REQ 分母固定 3／4 |
 
-子任務共 16 項；T01.1、T01.2、T02.1～T02.3、T03.1、T04.1、T04.2、T05.1、T06.1～T06.3 為 done，不代表網站完成。每項執行後在 §3 以子任務 ID、日期、環境、指令／步驟、實際結果及證據位置記錄；本表列出的 V 編號為驗證目標，不是已通過結果。
+子任務共 16 項；T01.1、T01.2、T02.1～T02.3、T03.1、T03.2、T04.1、T04.2、T05.1、T06.1～T06.3 為 done，不代表網站完成。每項執行後在 §3 以子任務 ID、日期、環境、指令／步驟、實際結果及證據位置記錄；本表列出的 V 編號為驗證目標，不是已通過結果。
 
 ## 3. 測試與驗證紀錄
 
@@ -152,13 +152,28 @@ T03.2 成功後照順序進行樣稿；若 T03.2 已明確因外部條件 blocke
 - T07.1本機技術證據：V01本機路由、V02兩語39鍵及切換、V03 tabs、V04經歷、V05尺寸／鍵盤／觸控／200%、V07本機trace／對比、V08固定安裝／最終產物／清理均有本節與既有證據。V06／V10的樣稿確認已取得，整站風格仍須使用者確認；V01／V06之Pages部分及V09線上皆未驗，不以本機結果替代。
 - 整站預覽已保存十二張全頁截圖（兩語×390／1440×三頁，About示範前兩項展開），已檢視中英代表頁。審查入口 `http://127.0.0.1:3052/integrated.html`，實際操作 `http://127.0.0.1:3051/next-react-practice/`，皆已HTTP200。`%TEMP%/chengyue-motion-preview/final-manifest.json` 記錄最終BUILD_ID、source／十二張圖片／四份trace的SHA256；大量暫存不入版控，刪除後需重跑重建。
 
+### 2026-10-21 Pages 發布及 HTTPS 驗證
+
+【實測】使用者已明確授權 Commit／Push main 與設定 Pages，實際完成：
+
+- 主提交 `bb97c493432d0d66cd7a9e979418fee642a74348`（feat: 建立澄岳雙語形象網站與 Pages 部署），54個網站與相關文件檔案，正常push main：40dd5cb→bb97c49。未Merge／Rebase／force push；先前獨立的docs/specs/.gitkeep刪除仍留工作區，未提交。Pages REST API已建立build_type=workflow，https_enforced=true。
+- 推送初期 GitHub workflows／runs清單為0，手動filename dispatch回404；唯讀確認workflow在main、Actions enabled、版本tags存在、儲存庫非fork／disabled／archived，沒有原樣持續重試。後續workflow註冊為active，ID391777272；依新註冊ID dispatch成功。原push run39613244545已開始，另有同提交pending手動run39613320530；取消重複pending，保留原push run。未更改workflow來掩蓋平台延遲。
+- 原push run [39613244545](https://github.com/xcia4899/next-react-practice/actions/runs/39613244545) 最終completed／success。build job119267421750：checkout、pnpm／Node設定、frozen-lockfile安裝、Lint、typegen、tsc、build、verify-static及artifact上傳均success；deploy job119267793106最終隨run成功。此次是真正ubuntu-latest雲端runner結果，與先前Windows本機證據分開。
+- Artifact：github-pages，ID12350972159，241940bytes，digest `sha256:45a8fc58eb831197d6b115a43d0566c2a8acea06822bc0d285c3a1b0fcb1ab40`。公開網址由Pages API回傳且已實測HTTP200：**https://xcia4899.github.io/next-react-practice/** 。主頁含瀏覽器中文導向，非伺服器redirect。
+- 【實測】Windows、Playwright1.56.1，另一瀏覽器 **Microsoft Edge155.0.4283.62** headless、未節流。測試副本 `%TEMP%/chengyue-playwright/online-{routes,language,history,integration,motion}.cjs` 將base改為實際Pages HTTPS，未修改原本本機測試。routes：六頁直接開啟／reload及lang、入口導向、fr／en/unknown／practice三筆HTTP404、關閉JS中文備援全部通過。language：三頁雙向保持同頁、39個非空翻譯鍵與參數一致。history：兩語×一般／減少動態的初態、多展開、快速收合、焦點、inert、旋轉均通過。
+- integration：公開網址的360×800／390×844／768×1024／1440×900 ×兩語三頁×一般／減少動態共48組，無溢出，鍵盤／觸控與語言切換通過；隔離Chrome profile的原生200%縮放亦在Pages URL通過六頁，DPR1→2、innerWidth1424→712。配色對比仍為13.54／5.74／4.69:1。
+- motion：公開網址四組（兩語×390／1440）首頁三時點、三業務切換、快速操作、旋轉、動態偏好均通過，28張影格另存 `%TEMP%/chengyue-pages-evidence/`，不覆蓋本機樣稿。這些是另一桌面瀏覽器與觸控模擬，不冒稱實體手機已測。
+- 另以Node fetch逐頁解析實際七份HTML，確認引用集合非空，共22個帶正確儲存庫基底的href／src目標，逐一HTTPS200且內容非空，包含icon與CSS／JS。不是只檢查首頁。
+- V09線上技術證據已具備，T03.2 done；T07.1整站風格仍待使用者明確確認，故T07.2正式交付及T07.3逐功能完成判定仍未done，REQ完成率維持0%。
+- 本次僅同步發布結果的文件後續提交使用 `[skip ci]` 避免重複部署相同網站程式；【官方】[GitHub skip workflow runs](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/skip-workflow-runs)。網站部署來源維持bb97c49，文件提交不改網站程式。
+
 ## 4. 阻礙事項
 
 T02.1 瀏覽器阻礙已解除：使用者明確允許改用 Playwright 及必要安裝，已以暫存 Playwright 與本機 Chrome 驗證通過。先前無瀏覽器紀錄為歷史狀態。
 
-T03.2 blocked：已完成儲存庫與可用權限查證；需使用者明確授權網站相關變更的 Commit／Push，以及確認／必要時設定 Pages 使用 GitHub Actions。取得授權後才進行部署及 HTTPS 驗證；目前沒有執行 workflow run，不能標為 done。
+T03.2 發布阻礙已解除：使用者已授權，已正常推送並設定 Pages workflow；Actions 與公開 HTTPS 實測通過。先前缺授權與未註冊 workflow 的狀態均為歷史。
 
-公開部署需 GitHub Pages 設定及 Commit／Push 授權；先完成可審查工作流程與本機產物，不推送或公開未確認的樣稿。動態樣稿完成後等待使用者確認風格，再執行 T06。
+目前尚待 T07.1 的整站風格確認；發布為使用者明確授權的開發示範版，未以部署成功取代整站風格驗收。
 
 ## 5. 完成摘要
 
@@ -224,3 +239,8 @@ T05.1確認已記錄，T06.1～T06.3完成並存檔。T07.1技術證據已彙整
 已使用既有Git credential helper在記憶體內驗證，沒有輸出或寫入憑證。Pages原先經驗證身分查詢404，已依授權POST建立build_type=workflow，預期網址由API回傳 https://xcia4899.github.io/next-react-practice/ 。此刻尚未證明公開網址可用。
 
 Git fetch查證遠端main=40dd5cb524feaf5470dfde21f769b88e57b1c33e，為本機HEAD祖先；本機既有文件提交領先遠端，可正常快轉推送，不Merge／Rebase／force push。既有待提交變更逐項盤點：網站程式、依賴轉換、靜態部署腳本、README與工程啟動指令、正式REQ／SPEC／DESIGN／TASK及對應索引與需求來源文件均與網站有關。舊docs/specs/.gitkeep刪除屬先前獨立目錄清理，不納入本次網站提交，保留工作區狀態。
+### 最新交接：Pages 已上線，仍待整站風格驗收
+
+使用者此次只明確授權發布，已完成Commit／Push與Pages設定及HTTPS驗證。可直接檢視 https://xcia4899.github.io/next-react-practice/ 。T03.2 done，T07.1 in_progress等待整站風格確認；T07.2與T07.3不得僅因網站已上線而自動done。
+
+下次若使用者明確確認公開整站版本的風格，記錄確認來源後可依已具備的線上證據完成相關交付判定；若提出修改，修正並重驗差異，必要時依本次發布授權提交／更新Pages。保留使用者獨立的docs/specs/.gitkeep刪除，不作破壞性清理。各功能尚不標completed。

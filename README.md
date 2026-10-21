@@ -1,6 +1,6 @@
 # 澄岳數位設計
 
-虛構公司示範網站，以 Next.js、React、TypeScript、Tailwind CSS v4 與 next-intl 建立繁體中文／英文三頁。網站仍在開發與驗收，尚無已驗證的 Pages 公開網址。
+虛構公司示範網站，以 Next.js、React、TypeScript、Tailwind CSS v4 與 next-intl 建立繁體中文／英文三頁。已發布於 [GitHub Pages](https://xcia4899.github.io/next-react-practice/)，整站風格與最終驗收仍進行中。
 
 ## 開發
 
@@ -39,6 +39,6 @@ pnpm start
 
 ## 發布與進度
 
-.github/workflows/pages.yml 已準備 main 分支的 Pages 建置／部署流程，已取得本次 Commit／Push／Pages 設定授權，部署執行中；尚未驗證 Actions 與公開 HTTPS 網址。本機通過不代表公開交付完成。
+.github/workflows/pages.yml 已準備 main 分支的 Pages 建置／部署流程，已依授權發布；[Actions run 39613244545](https://github.com/xcia4899/next-react-practice/actions/runs/39613244545) 成功，公開 HTTPS 的六頁、刷新、語言切換、互動及404已驗證。整站風格仍待確認，部署成功不等於所有功能已完成驗收。
 
 進度及驗證正本見 [TASK-20261020-0001](docs/task/20261020-0001-company-website.md) 與 [文件索引](docs/AGENTS.md#10-索引)。大量截圖與 Performance trace 僅存本機暫存，不入版控。
